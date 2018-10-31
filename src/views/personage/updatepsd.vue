@@ -1,7 +1,8 @@
 <template>
-    <div class="pt110">
-        <Hearder />
-        <div class="contnet">
+    <div>
+        <Hearder style="position: absolute" />
+        <!-- <Hearder  /> -->
+        <div class="contnet pt110">
             <form action="/" @submit.prevent>
                 <div class="item">
                     <div class="title" >旧密码：</div>
@@ -72,7 +73,7 @@ import { Toast } from 'mint-ui';
 
 <style scoped lang="less">
 .contnet{
-    padding: 0.6rem 0.8rem 0;
+    padding: 1.7rem 0.8rem 0;
     .item{
         padding-bottom: 0.2rem;
         .title{

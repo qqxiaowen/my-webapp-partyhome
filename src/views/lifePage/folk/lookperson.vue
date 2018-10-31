@@ -5,7 +5,7 @@
         v-infinite-scroll="downUpLoad"
         infinite-scroll-disabled="isOffDown"
        >
-            <div class="item" v-for="item in person" :key=item.id>
+            <div class="item" v-for="item in person" :key=item.id @click="handleGrade(item._id)">
                 <div class="left">
                     <img :src="item.avatar" alt="">
                     <span>{{item.nicheng}}</span>
@@ -24,6 +24,7 @@
 import Hearder from '@/components/Hearder'
 import Nullcontent from '@/components/Nullcontent'
 import Tofoot from '@/components/Tofoot'
+import { Toast } from 'mint-ui';
     export default {
         components:{
             Hearder,
@@ -57,6 +58,16 @@ import Tofoot from '@/components/Tofoot'
                 this.page = this.page + 1
                 this.isloading = true;
                 this.getdata()
+            },
+            handleGrade(id){
+                this.$axios.get(`/ddyj/summary/${id}`).then(res => {
+                    this.summary = res.data
+                    if(res.code == 401){
+                        Toast('该成员尚未提交个人总结')
+                    }else{
+                        this.$router.push(`/summaryGrade/${id}`)
+                    }
+                })
             }
         },
         created(){

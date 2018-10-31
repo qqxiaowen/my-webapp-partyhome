@@ -112,10 +112,11 @@
 .imgnav2 .imgnav_right {
   flex: 2;
 }
-.imgnav2 .imgnav_right .row {
+.imgnav2 .imgnav_right /deep/ .row {
   display: flex;
-  height: 50%;
+  height: 1.6rem;
 }
-.imgnav2 .imgnav_right .row a {
+.imgnav2 .imgnav_right /deep/ .row a {
   flex: 1;
+  display: block;
 }

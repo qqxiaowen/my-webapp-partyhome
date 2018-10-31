@@ -1,86 +1,97 @@
 <template>
-    <div class="myinfo pt110">
-        <Hearder />
-        <div class="redact" @click="update">
-            保存
-        </div>
-        <div class="content">
-            <div class="content-item">
-                <span>头像</span>
-                <label>
-                    <input style="display:none"  type="file" @change="handleupimg" >
-                    <div class="flr">
-                        <img :src="userinfo.avatar" alt="">
+    <div class="myinfo">
+        <Hearder style="position: absolute" />
+        <div class="pt110">
+            <div class="redact" @click="update">
+                保存
+            </div>
+            <div class="content">
+                <div class="content-item">
+                    <span>头像</span>
+                    <label>
+                        <input style="display:none"  type="file" @change="handleupimg" >
+                        <div >
+                            <img :src="userinfo.avatar" alt="">
+                        </div>
+                    </label> 
+                </div>
+            </div>
+            <div class="content">
+                <div class="content-item">
+                    <span>用户名</span> 
+                    <div >
+                        <input type="text" v-model="userinfo.username" readonly  >
                     </div>
-                </label> 
-            </div>
-        </div>
-        <div class="content">
-            <div class="content-item">
-                <span>用户名</span> 
-                <div class="flr">
-                    <input type="text" v-model="userinfo.username" readonly  >
                 </div>
             </div>
-        </div>
-        <div class="content">
-            <div class="content-item">
-                <span>昵称</span>
-                <div class="flr">
-                    <input type="text" v-model="userinfo.nicheng"  >
+            <div class="content">
+                <div class="content-item">
+                    <span>昵称</span>
+                    <div >
+                        <input type="text" v-model="userinfo.nicheng"  >
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="content">
-            <div class="content-item">
-                <span>工作</span>
-                <div class="flr">
-                    <input type="text" v-model="userinfo.job"  >
+            <div class="content">
+                <div class="content-item">
+                    <span>工作</span>
+                    <div >
+                        <input type="text" v-model="userinfo.job"  >
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="content">
-            <div class="content-item">
-                <span>电话</span>
-                <div class="flr">
-                    <input type="text" v-model="userinfo.phone"  >
+            <div class="content">
+                <div class="content-item">
+                    <span>电话</span>
+                    <div >
+                        <input type="text" v-model="userinfo.phone"  >
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="content">
-            <div class="content-item">
-                <span>最高学历</span>
-                <div class="flr">
-                    <input type="text" v-model="userinfo.education"  >
+            <div class="content">
+                <div class="content-item">
+                    <span>最高学历</span>
+                    <div >
+                        <input type="text" v-model="userinfo.education"  >
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="content">
-            <div class="content-item">
-                <span>性别</span>
-                <div class="radio flr">
-                    <input class="radio-ys" value="1" name="sex" type="radio" v-model="userinfo.sex">男
-                    <input class="radio-ys" value="2" name="sex" type="radio"  v-model="userinfo.sex">女
+            <div class="content">
+                <div class="content-item">
+                    <span>性别</span>
+                    <div class="radio flr">
+                        <label :class="{activelabel:userinfo.sex == 1}">
+                            <i class="iconfont icon-radio-checked"></i>
+                            <input  :value="1" name="sex" type="radio" v-model="userinfo.sex"><span>男</span>
+                        </label>
+                        <label :class="{activelabel:userinfo.sex == 0}">
+                            <i class="iconfont icon-radio-checked"></i>
+                            <input  :value="0" name="sex" type="radio" v-model="userinfo.sex">女
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="content">
-            <div class="content-item">
-                <span>当前身份</span>
-                <div class="flr">
-                    <select name="partyStatus" v-model="userinfo.partyStatus">
-                        <option value="0">积极分子</option>
-                        <option value="1">预备党员</option>
-                        <option value="2">党员</option>
-                    </select>
+            <div class="content">
+                <div class="content-item">
+                    <span>当前身份</span>
+                    <div>
+                        <label class="label-ys" >
+                            <select name="partyStatus" v-model="userinfo.partyStatus">
+                                <option value="0">积极分子</option>
+                                <option value="1">预备党员</option>
+                                <option value="2">党员</option>
+                            </select>
+                            {{userinfo.partyStatusName}}
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="content">
-            <div class="desc">
-                <div class="left">描述</div>
-                <div class="right">
-                    <textarea v-model="userinfo.desc"></textarea>
+            <div class="content">
+                <div class="desc">
+                    <div class="left">描述</div>
+                    <div class="right">
+                        <textarea v-model="userinfo.desc"></textarea>
+                    </div>
                 </div>
             </div>
         </div>
@@ -160,6 +171,8 @@ import axios from 'axios'
 }
 
 /deep/ .content-item{
+    display: flex;
+    justify-content: space-between;
     padding: 0 0.2rem;
     height: 0.9rem;
     line-height: 0.9rem;
@@ -182,7 +195,17 @@ import axios from 'axios'
         background: #fff;
     }
     select{
+        // display: none;
+        -webkit-appearance: none;
+        height: 0.9rem;
+        color: #333;
+        border: none;
+        outline: none;
+        background: #fff;
+    }
+    .label-ys{
         display: block;
+        width: 1rem;
         height: 0.9rem;
         color: #333;
         border: none;
@@ -191,10 +214,29 @@ import axios from 'axios'
     }
 }
 .radio{
-    /deep/ .radio-ys{
+    label{
         display: inline-block;
-        vertical-align: middle;
-        margin-right: 0.1rem;
+        text-align: right;
+        padding-left:  0.15rem;
+        height: 0.8rem;
+        line-height: 0.8rem;
+        width: 0.7rem;
+
+        input {
+            display:none;
+        }
+        span{
+            line-height: 0.8rem;
+        }
+        i{
+            color: #409eff;
+            float: left;
+            margin-right: 0.1rem;
+            display: none;
+        }
+    }
+    .activelabel{
+        i{ display: block;}
     }
 }
 .sanjiao{

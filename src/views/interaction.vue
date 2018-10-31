@@ -1,33 +1,37 @@
 <template>
-    <div class=" pt110">
-        <Hearder />
-        <div class="interaction"
-         v-infinite-scroll="updownload"
-        infinite-scroll-disabled="isOffdownload">
-            <!-- <div class="item" v-for="(item,index) in formdata" :key=index @click="handledetil(item._id)"> -->
-            <router-link :to="{name:'interDetail',params:{id:item._id}}" class="item" v-for="(item,index) in formdata" :key=index >
-                <div class="row1">
-                    <div class="left">
-                        <img :src="item.user.avatar" alt="">
-                        <div>
-                            <div class="title">{{item.user.nicheng}}</div>
-                            <div class="date-message">
-                                <span><i class="dmiconys iconfont icon-shijian"></i>{{item.createTime}}</span>
-                                <span><i class="dmiconys iconfont icon-xiaoxi"></i>公开</span>
+    <div class="interaction" >
+        <Hearder style="position: absolute" />
+        <div class=" main pt110" ref="main">
+            <div v-infinite-scroll="updownload"
+            infinite-scroll-disabled="isOffdownload">
+                <router-link :to="{name:'interDetail',params:{id:item._id}}" class="item" v-for="(item,index) in formdata" :key=index >
+                    <div class="row1">
+                        <div class="left">
+                            <img :src="item.user.avatar" alt="">
+                            <div>
+                                <div class="title">{{item.user.nicheng}}</div>
+                                <div class="date-message">
+                                    <span><i class="dmiconys iconfont icon-shijian"></i>{{item.createTime}}</span>
+                                    <span><i class="dmiconys iconfont icon-xiaoxi"></i>公开</span>
+                                </div>
                             </div>
                         </div>
+                        
+                        <div class="right">党员互动</div>
                     </div>
-                    
-                    <div class="right">党员互动</div>
-                </div>
-                <div class="row2">
-                    {{item.content}}
-                </div>
-                <div class="row3">
-                    <i class="dmiconys iconfont icon-xiaoxi2"></i>回复
-                </div>
-            </router-link >
+                    <div class="row2">
+                        {{item.content}}
+                    </div>
+                    <div class="row3">
+                        <i class="dmiconys iconfont icon-xiaoxi2"></i>回复
+                    </div>
+                </router-link >
 
+            </div>
+            
+            <div class="loading" v-if="isloading"><img  src="@/svg/loading.svg"   alt=""></div>
+            <Nullcontent v-if="!isloading&&!formdata[0]"  />
+            <Tofoot v-if="!isloading&&formdata[0]" />
         </div>
         <div class="issue" @click="ShowTeaea">
             <i class="issue-ys iconfont icon-wuuiconxiangjifangda"></i>
@@ -42,9 +46,6 @@
                 </div>
             </div>
         </div>
-        <div class="loading" v-if="isloading"><img  src="@/svg/loading.svg"   alt=""></div>
-        <Nullcontent v-if="!isloading&&!formdata[0]"  />
-        <Tofoot v-if="!isloading&&formdata[0]" />
     </div>
 </template>
 
@@ -79,7 +80,7 @@ import {handletime} from '@/utils/index'
                     this.formdata = [...this.formdata,...res.data]
                     this.isOffdownload = false;
                     if(res.data.length == 0){
-                        this.isOffdownload = true;
+                        // this.isOffdownload = true;
                         this.isloading = false;
                     }
                 })
@@ -120,14 +121,23 @@ import {handletime} from '@/utils/index'
         },
         created(){
             this.getData()
+        },
+        mounted(){ 
+            // this.$nextTick(() => {
+                document.documentElement.style.overflow = 'hidden'
+                document.body.style.overflow = 'hidden'
+                document.getElementById('app').style.overflow = 'hidden'
+            // })
+        },
+        beforeDestroy(){ // 将overflow hidden 去除
+            document.documentElement.style.overflow = 'auto'
+            document.body.style.overflow = 'auto'
+            document.getElementById('app').style.overflow = 'auto'
         }
     }
 </script>
 
 <style scoped lang='less'>
-.interaction{
-    background: #f1f1f1;
-}
 .item{
     display: flex;
     flex-direction: column;
@@ -187,42 +197,41 @@ import {handletime} from '@/utils/index'
     color: #333;
 }
 .issue{
-    position:fixed;
+    position:absolute;
     right: 0.2rem;
     bottom: 1.5rem;
     width: 1.2rem;
     height: 1.2rem;
+    z-index: 200;
     .issue-ys{
         color: #f00;
         font-size: 1.2rem;
     }
 }
 .suemessage{
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     background: rgba(0,0,0,.2);
-    z-index: 960
+    z-index: 960;
+    display: flex;
+    flex-direction: column;
 }
 .suem-top{
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 9.4rem;
+   flex: 2.5;
 }
 .suem-bottom{
-    position:absolute;
-    bottom: 0;
-    height: 3rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     background: #f1f1f1;
     padding: 0.2rem;
     z-index: 300;
     textarea{
         width: 6.8rem;
-        height: 2.3rem;
+        flex: 1;
         padding: 10px;
         box-sizing: border-box;
         outline: none;
@@ -246,4 +255,32 @@ import {handletime} from '@/utils/index'
         }
     }
 }
+</style>
+<style>
+html{
+    height: 100%;
+    overflow: hidden;
+}
+body{
+    height: 100%;
+    overflow: hidden;
+}
+#app{
+    height: 100%;
+    overflow: hidden;
+}
+.interaction{
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    flex-direction: column;
+}
+.main{
+    flex: 1;
+    background: #f1f1f1;
+    height: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
 </style>

@@ -3,7 +3,8 @@
         <Hearder />
         <div class="clearfix pt110">
             <div  v-infinite-scroll="handleBootom"
-            infinite-scroll-disabled="isOffDown">
+            infinite-scroll-disabled="isOffDown"
+            >
                 <div class="item"  v-for="(item,index) in newData" :key=index>
                     <div @click="$router.push(`/newDetail/${item._id}`)">
                         <img :src="item.img" alt="">

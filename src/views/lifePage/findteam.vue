@@ -24,7 +24,7 @@ import Hearder from '@/components/Hearder'
                 this.map.centerAndZoom(schooldot, 5);               // 初始化地图，设置中心点坐标和地图级别  
 
                 this.map.addControl(new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT}));  
-                this.map.addControl(new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT,offset:new BMap.Size(20, 80)}));  
+                this.map.addControl(new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT,offset:new BMap.Size(20, 140)}));  
                 this.drawDot(schooldot,beijingdot)
             },
             drawDot(schooldot,beijingdot){

@@ -15,6 +15,7 @@ export default {
 <style>
 body {
   font-size: 16px;
+  -webkit-overflow-scrolling:touch;
 }
 * {
   padding: 0;
@@ -42,6 +43,10 @@ a{
 }
 .pb104{
   padding-bottom: 1.04rem;
+}
+/* 全局表单样式 */
+input {
+  -webkit-appearance:none
 }
 .loading {
   margin: 0.24rem 0;

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import home from '../views/home'
+import bscroll from '@/views/bscroll/bscroll'
 
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
@@ -30,10 +31,18 @@ const components = {
   lookperson:()=>import('@/views/lifePage/folk/lookperson'),
   interaction:()=>import('@/views/interaction'),
   interDetail:()=>import('@/views/interDetail'),
+  summaryGrade:()=>import('@/views/lifePage/folk/summaryGrade'), //总结评议详情
 }
 
 const router = new Router({
   routes: [
+    {
+      path: '/ceshi',
+      meta:{
+        desc:'测试',
+      },
+      component:bscroll
+    },
     {
       path: '/',
       meta:{
@@ -261,10 +270,18 @@ const router = new Router({
     {
       path:'/lookperson',
       meta:{
-        desc:'民主评议',
+        desc:'参评党员',
       },
       name:'lookperson',
       component:components.lookperson,
+    },
+    {
+      path:'/summaryGrade/:id',
+      meta:{
+        desc:'个人总结详情',
+      },
+      name:'summaryGrade',
+      component:components.summaryGrade,
     },
     {
       path:'/interDetail/:id',
