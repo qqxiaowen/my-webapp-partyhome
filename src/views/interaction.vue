@@ -123,11 +123,9 @@ import {handletime} from '@/utils/index'
             this.getData()
         },
         mounted(){ 
-            // this.$nextTick(() => {
-                document.documentElement.style.overflow = 'hidden'
-                document.body.style.overflow = 'hidden'
-                document.getElementById('app').style.overflow = 'hidden'
-            // })
+            document.documentElement.style.overflow = 'hidden'
+            document.body.style.overflow = 'hidden'
+            document.getElementById('app').style.overflow = 'hidden'
         },
         beforeDestroy(){ // 将overflow hidden 去除
             document.documentElement.style.overflow = 'auto'
@@ -257,7 +255,7 @@ import {handletime} from '@/utils/index'
 }
 </style>
 <style>
-html{
+/* html{
     height: 100%;
     overflow: hidden;
 }
@@ -268,7 +266,7 @@ body{
 #app{
     height: 100%;
     overflow: hidden;
-}
+} */
 .interaction{
     display: flex;
     height: 100%;

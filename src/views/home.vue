@@ -8,7 +8,7 @@
         </div>
         <div class="lunbo">
 
-            <swiper :options="secondOptions">
+            <swiper :options="secondOptions" ref="mySwiper" >
                 <swiper-slide v-for="(item) in LunboData" :key="item.id">
                      <router-link :to="{name: 'newDetail', params: {id:item.newsId}}">
                         <img :src= "item.img" >
@@ -61,16 +61,24 @@
             Footer
         },
         data() {
+            const vm = this;
         return {
             // 轮播图配置
             secondOptions: {
                 autoplay: 3000,
                 loop:true,
                 pagination : '.swiper-pagination',
+                onTouchEnd: function(swiper){
+                    setTimeout(() => {
+                        swiper.startAutoplay()
+                    }, 1)
+                    // 会报错
+                },
             },
             
             // 数据
-            LunboData:[]
+            LunboData:[],
+            
         }
     },
     methods:{

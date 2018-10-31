@@ -105,17 +105,3 @@ import BScroll from 'better-scroll'
     }
 }
 </style>
-<style>
-html{
-    height: 100%;
-    overflow: hidden;
-}
-body{
-    height: 100%;
-    overflow: hidden;
-}
-#app{
-    height: 100%;
-    overflow: hidden;
-}
-</style>

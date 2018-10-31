@@ -13,9 +13,16 @@ export default {
 
 
 <style>
+html{
+  height: 100%;
+}
 body {
+  height: 100%;
   font-size: 16px;
   -webkit-overflow-scrolling:touch;
+}
+#app{
+  height: 100%;
 }
 * {
   padding: 0;

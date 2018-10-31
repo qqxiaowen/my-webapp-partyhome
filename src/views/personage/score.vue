@@ -2,7 +2,7 @@
     <div class="score pt110">
         <Hearder />
         <div class="bander">
-            <div class="bander-font">{{$store.state.userinfo.totalScore}}</div>
+            <div class="bander-font" v-text="integral"></div>
         </div>
         <router-link to="/scoredetail" class="my-nav-item">
             <div class="nav-right flr">
@@ -19,55 +19,35 @@
             </div>
             <div class="row1 row2">
                 <span class="row-left">登录APP</span>
-                <span class="row-right">5</span>
+                <span class="row-right">0.1</span>
             </div>
             <div class="row1 row2">
-                <span class="row-left">完善个人信息</span>
-                <span class="row-right">2</span>
+                <span class="row-left">提交个人总结</span>
+                <span class="row-right">10</span>
+            </div>
+             <div class="row1 row2">
+                <span class="row-left">查看他人总结</span>
+                <span class="row-right">0.2</span>
             </div>
             <div class="row1 row2">
-                <span class="row-left">查看积分</span>
+                <span class="row-left">修改密码</span>
+                <span class="row-right">0.5</span>
+            </div>
+            <div class="row1 row2">
+                <span class="row-left">发布云互动主题</span>
                 <span class="row-right">1</span>
             </div>
             <div class="row1 row2">
-                <span class="row-left">按时交纳党费</span>
-                <span class="row-right">10</span>
-            </div>
-            <div class="row1 row2">
-                <span class="row-left">查看通知</span>
-                <span class="row-right">2</span>
-            </div>
-            <div class="row1 row2">
-                <span class="row-left">了解学院工作动态</span>
-                <span class="row-right">5</span>
-            </div>
-            <div class="row1 row2">
-                <span class="row-left">上交思想汇报经审核通过</span>
-                <span class="row-right">5</span>
-            </div>
-            <div class="row1 row2">
-                <span class="row-left">提交个人总结，并参与评议</span>
-                <span class="row-right">2</span>
-            </div>
-            <div class="row1 row2">
-                <span class="row-left">积极参与互动</span>
-                <span class="row-right">5</span>
-            </div>
-            <div class="row1 row2">
-                <span class="row-left">学习党建知识</span>
-                <span class="row-right">5</span>
+                <span class="row-left">回复云互动主题</span>
+                <span class="row-right">1</span>
             </div>
             <div class="row1 row2">
                 <span class="row-left">学习党史</span>
-                <span class="row-right">10</span>
+                <span class="row-right">0.2</span>
             </div>
             <div class="row1 row2">
-                <span class="row-left">创先争优事迹</span>
-                <span class="row-right">10</span>
-            </div>
-            <div class="row1 row2">
-                <span class="row-left">学党章，学习习近平总书记系列讲话</span>
-                <span class="row-right">10</span>
+                <span class="row-left">查看新闻</span>
+                <span class="row-right">0.1</span>
             </div>
         </div>
     </div>
@@ -78,6 +58,21 @@ import Hearder from '@/components/Hearder'
     export default {
         components:{
             Hearder
+        },
+        data(){
+            return{
+                integral:'',
+            }
+        },
+        methods:{
+            getIntegral(){
+                this.$axios.get('/ddyj/integral/all').then(res => {
+                    this.integral = res.data[0].count / 10
+                })
+            }
+        },
+        created(){
+            this.getIntegral()
         }
         
     }

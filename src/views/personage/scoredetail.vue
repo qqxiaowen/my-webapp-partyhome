@@ -1,7 +1,7 @@
 <template>
     <div class="pt110">
         <Hearder />
-        <Nullcontent v-if="!scoredata&&istofoot" />
+        <Nullcontent v-if="!isloading&&!scoredata[0]"  />
            <div v-infinite-scroll="loadMore"
                 infinite-scroll-disabled="isOffUpload"  >
                 <div class="item" v-for="(item,index) in scoredata" :key=index>
@@ -10,16 +10,16 @@
                         {{item.typeName}}
                         </div>
                         <div class="row2">
-                        {{item.timeFormat}}
+                        {{item.createTime}}
                         </div>
                     </div>
                     <div class="right">
-                        +{{item.singleDesc}}
+                        +{{item.mark}}
                     </div>
                 </div>
-                <img v-if="!istofoot"  class="loading" src="/static/svg/loading.gif" alt="">
+                <div class="loading" v-if="isloading"><img  src="@/svg/loading.svg"   alt=""></div>
            </div>
-        <Tofoot v-if="scoredata&&istofoot" />
+        <Tofoot v-if="!isloading&&scoredata[0]" />
            
     </div>
 </template>
@@ -28,6 +28,7 @@
 import Hearder from '@/components/Hearder'
 import Nullcontent from '@/components/Nullcontent'
 import Tofoot from '@/components/Tofoot'
+import {handletime} from '@/utils/index'
     export default {
         components:{
             Hearder,
@@ -39,23 +40,56 @@ import Tofoot from '@/components/Tofoot'
                 scoredata:'',
                 page:1,
                 isOffUpload:true,
-                istofoot:false
+                isloading:true,
             }
         },
         methods:{
             getdata(){
-                this.$axios.get(`/integral/integralList.do?page=${this.page}&rows=10`).then(res => {
-                    this.scoredata =[...this.scoredata,...res.rows] 
+                this.$axios.get(`/ddyj/integral`,{pn:this.page}).then(res => {
                     this.isOffUpload = false; //先开启下拉
-                    if(res.rows.length < 10){
+                    res.data.forEach(item => {
+                        switch(item.type){
+                            case 1:
+                            item.typeName = '登录'
+                                break;
+                            case 2:
+                            item.typeName = '修改密码'
+                                break;
+                            case 3:
+                            item.typeName = '发布云互动主题'
+                                break;
+                            case 4:
+                            item.typeName = '回复云互动主题'
+                                break;
+                            case 5:
+                            item.typeName = '查看新闻'
+                                break;
+                            case 6:
+                            item.typeName = '学习党史'
+                                break;
+                            case 7:
+                            item.typeName = '提交个人总结'
+                                break;
+                            case 8:
+                            item.typeName = '查看他人总结'
+                                break;
+                            default:
+                                break;
+                        }
+                        item.mark = item.mark / 10
+                        item.createTime = handletime(item.createTime)
+                    })
+                    this.scoredata =[...this.scoredata,...res.data] 
+                    
+                    if(res.data.length < 10){
                         this.isOffUpload = true;    //关闭下拉
-                        this.istofoot = true;
+                        this.isloading = false;
                     }
                 })
             },
             // 上拉加载
             loadMore(){
-                console.log(11)
+                console.log('上拉了')
                 this.page = this.page + 1
                 this.getdata()
             }

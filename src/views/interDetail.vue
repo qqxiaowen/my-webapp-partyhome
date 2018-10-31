@@ -144,6 +144,7 @@ import BScroll from 'better-scroll'
             document.documentElement.style.overflow = 'hidden'
             document.body.style.overflow = 'hidden'
             document.getElementById('app').style.overflow = 'hidden'
+            
         },
         beforeDestroy(){
             document.documentElement.style.overflow = 'auto'
@@ -253,7 +254,7 @@ import BScroll from 'better-scroll'
     /* overflow-y: scroll; */
     /* -webkit-overflow-scrolling:touch; */
 }
-html{
+/* html{
     height: 100%;
     overflow: hidden;
 }
@@ -264,6 +265,6 @@ body{
 #app{
     height: 100%;
     overflow: hidden;
-}
+} */
 </style>
 

@@ -1,8 +1,8 @@
 <template>
     <div class="today pt110">
         <Hearder />
-        <!-- <div class="loading" v-if="isloading"><img  src="@/svg/loading.svg" alt=""></div> -->
-        <div class="loading" ><img  src="@/svg/loading.svg" alt=""></div>
+        <div class="loading" v-if="isloading"><img  src="@/svg/loading.svg" alt=""></div>
+        <!-- <div class="loading" ><img  src="@/svg/loading.svg" alt=""></div> -->
         <div class="detail">
             <div v-html="content"></div>
         </div>

@@ -6,15 +6,15 @@
             <form action="/" @submit.prevent>
                 <div class="item">
                     <div class="title" >旧密码：</div>
-                    <input type="text" v-model="oldpwd">
+                    <input type="password" v-model="oldpwd">
                 </div>
                 <div class="item">
                     <div class="title">新密码：</div>
-                    <input type="text" v-model="newpwd">
+                    <input type="password" v-model="newpwd">
                 </div>
                 <div class="item">
                     <div class="title" >确认密码：</div>
-                    <input type="text" v-model="againpwd">
+                    <input type="password" v-model="againpwd">
                 </div>
                 <button @click="updatepwd">确定</button>
             </form>
