@@ -58,7 +58,6 @@ import { Toast } from 'mint-ui';
     }
     .content{
         padding-top: 0.2rem;
-        margin: 0.25rem 0;
         font-size: 0.28rem;
         color: #666;
         /deep/ p {
@@ -67,11 +66,12 @@ import { Toast } from 'mint-ui';
     }
     
     .button{
-        margin: 1.8rem 0.8rem 0;
+        margin: 1.2rem 0.8rem 0;
         display: flex;
         justify-content: space-between;
         height: 0.8rem;
         select{
+            -webkit-appearance: none;
             padding-left: 0.2rem;
             width: 3.2rem;
             margin-right: 0.2rem;

@@ -1,18 +1,16 @@
 <template>
-    <div class="pt110">
-        <Hearder />
-        <div class="summary">
-            <div class="imgbox clearfix">
-                <div class="fll" v-for="(item,index) in imgs" :key=index >
-                    <img v-lazy="item" alt="">
-                </div>
-                <label class="upload">
-                    <input @change="uploadfile" type="file">
-                </label>
+    <div class="personsum">
+        <Hearder style="position: absolute" />
+        <div class="imgbox pt110 clearfix">
+            <div class="fll" v-for="(item,index) in imgs" :key=index >
+                <img v-lazy="item" alt="">
             </div>
-            <div class="button">
-                <button @click="handleSublit">提交审核</button>
-            </div>
+            <label class="upload">
+                <input @change="uploadfile" type="file">
+            </label>
+        </div>
+        <div class="button">
+            <button @click="handleSublit">提交审核</button>
         </div>
     </div>
 </template>
@@ -52,9 +50,9 @@ import { Toast } from 'mint-ui';
                 }else{
                     this.$axios.post('/ddyj/summary',{contents:this.imgs}).then(res => {
                         Toast(res.msg)
-                        if(res.code == 200){
-                            this.$router.push('/folkhome')
-                        }
+                        // if(res.code == 200){
+                        //     this.$router.replace('/folkhome')
+                        // }
                     })
                 }
             }
@@ -67,8 +65,23 @@ import { Toast } from 'mint-ui';
 </script>
 
 <style scoped lang='less'>
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+}
+#app{
+    height: 100%;
+}
+.personsum{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
 .button{
-    padding: 0.6rem 0.2rem 0;
+    padding: 0.3rem 0.2rem ;
     button{
         width: 100%;
         height: 0.8rem;
@@ -80,7 +93,8 @@ import { Toast } from 'mint-ui';
     }
 }
 .imgbox{
-    height: 10rem;
+    // height: 10rem;
+    flex: 1;
     background: #f1f1f1;
     overflow: auto;
     img{

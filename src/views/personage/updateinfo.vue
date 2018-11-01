@@ -75,14 +75,11 @@
                 <div class="content-item">
                     <span>当前身份</span>
                     <div>
-                        <label class="label-ys" >
-                            <select name="partyStatus" v-model="userinfo.partyStatus">
-                                <option value="0">积极分子</option>
-                                <option value="1">预备党员</option>
-                                <option value="2">党员</option>
-                            </select>
-                            {{userinfo.partyStatusName}}
-                        </label>
+                        <select name="partyStatus" v-model="userinfo.partyStatus">
+                            <option value="0">积极分子</option>
+                            <option value="1">预备党员</option>
+                            <option value="2">党员</option>
+                        </select> 
                     </div>
                 </div>
             </div>
@@ -157,7 +154,7 @@ import axios from 'axios'
 
 <style scoped lang='less'>
 .redact{
-    position: fixed;
+    position: absolute;
     width: 1.1rem;
     height: 1.11rem;
     line-height: 1.1rem;
@@ -195,7 +192,6 @@ import axios from 'axios'
         background: #fff;
     }
     select{
-        // display: none;
         -webkit-appearance: none;
         height: 0.9rem;
         color: #333;

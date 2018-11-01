@@ -53,6 +53,7 @@
     import { swiper, swiperSlide } from 'vue-awesome-swiper'
     import Footer from '../components/Footer'
     import { islogin } from '@/utils/redlogin'
+import { clearTimeout } from 'timers';
 
     export default {
         components: {
@@ -65,17 +66,15 @@
         return {
             // 轮播图配置
             secondOptions: {
-                autoplay: 3000,
+                autoplay: 2000,
                 loop:true,
                 pagination : '.swiper-pagination',
-                onTouchEnd: function(swiper){
-                    setTimeout(() => {
+                onTouchEnd: swiper => {
+                    this.$nextTick(() => {
                         swiper.startAutoplay()
-                    }, 1)
-                    // 会报错
+                    })               
                 },
             },
-            
             // 数据
             LunboData:[],
             
@@ -98,8 +97,7 @@
     },
     created(){
         this.getLunboData()
-    },
-    
+    }
 
     }
 </script>

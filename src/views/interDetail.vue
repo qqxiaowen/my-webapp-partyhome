@@ -2,8 +2,9 @@
     <div class=" interdetail">
         <Hearder style="position: absolute" />
         <div class=" pt110 main2" ref="main">
-            <div v-infinite-scroll="handleBootom"
-                 infinite-scroll-disabled="isOffDown">
+            <!-- <div v-infinite-scroll="handleBootom"
+                 infinite-scroll-disabled="isOffDown"> -->
+            <div>
                 <div class="item itme-ys" v-if="replytop&&replytop.user">
                     <div class="row1">
                         <div class="left">
@@ -113,9 +114,8 @@ import BScroll from 'better-scroll'
                 this.$axios.post(`/ddyj/common`,this.talk).then(res => {
                     if(res.code == 200){
                         Toast('评论成功')
-                        // this.getreplybody();
-                        // this.replybody.push()
                         this.replybody = '',
+                        this.talk.content = '',
                         this.pn = 1,
                         this.getreplybody()
                     }else{
@@ -123,16 +123,28 @@ import BScroll from 'better-scroll'
                     }
                 })
             },
-            handleBootom(){ //下拉加载
-                console.log('下拉了')
-                // this.pn = this.pn + 1
-                // this.getreplybody();
-            },
             initscroll(){ // 初始化BS
-                let main = this.$refs.main
-                this.BS = new BScroll(main,{mouseWhell:true,scrollbar:true})
-
-            }
+                this.$nextTick(() => {
+                    let main = this.$refs.main
+                    this.BS = new BScroll(main,{
+                        mouseWhell:true,
+                        scrollbar:true,
+                        pullUpLoad: {
+                            threshold: 0
+                        }
+                    })
+                    this.BS.on('pullingUp', () =>{
+                        console.log('上拉')
+                        this.pn = this.pn + 1
+                        this.getreplybody()
+                        if(!this.isOffDown){//还有数据了
+                            this.BS.openPullUp()
+                            this.BS.refresh()
+                        }
+                    })
+                })
+                
+            },
 
         },
         created(){
@@ -207,13 +219,8 @@ import BScroll from 'better-scroll'
     color: #333;
 }
 .talk{
-    // position:fixed;
     display: flex;
     justify-content: space-between;
-    // bottom: 0;
-    // left: 0;
-    // right: 0;
-    // height: 0.6rem;
     background: #f1f1f1;
     padding:  0.1rem 0.2rem;
     z-index: 996;
